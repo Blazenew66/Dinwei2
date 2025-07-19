@@ -27,7 +27,7 @@
 - **前端框架**：Streamlit
 - **AI模型**：DeepSeek Chat
 - **编程语言**：Python 3.8+
-- **部署平台**：Streamlit Cloud（可迁移到自有服务器）
+- **部署平台**：Vercel（推荐）/ Streamlit Cloud
 
 ## 📦 安装部署
 
@@ -63,6 +63,44 @@ streamlit run app.py
 streamlit run app_enhanced.py
 ```
 
+## 🚀 部署到Vercel
+
+### 1. 准备部署文件
+确保项目包含以下文件：
+- `requirements.txt`
+- `vercel.json`（如果使用自定义配置）
+- `.env`文件（本地测试用，不要上传到Git）
+
+### 2. 连接GitHub
+1. 登录 [Vercel](https://vercel.com)
+2. 点击 "New Project"
+3. 选择你的GitHub仓库 `ai-side-hustle-tool`
+4. 配置环境变量：
+   - `DEEPSEEK_API_KEY`: 你的DeepSeek API密钥
+
+### 3. 部署配置
+```json
+// vercel.json (可选)
+{
+  "builds": [
+    {
+      "src": "app_enhanced.py",
+      "use": "@vercel/python"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "app_enhanced.py"
+    }
+  ]
+}
+```
+
+### 4. 自动部署
+- 每次推送到GitHub，Vercel会自动重新部署
+- 访问你的域名：`https://your-project.vercel.app`
+
 ## 🎮 使用指南
 
 ### 1. 填写信息
@@ -92,6 +130,7 @@ Dinwei2/
 ├── requirements.txt       # Python依赖包
 ├── README.md             # 项目说明文档
 ├── config.md             # 配置说明文档
+├── vercel.json           # Vercel部署配置
 └── static/               # 静态资源文件夹
     └── pay.jpg           # 支付二维码图片
 ```
@@ -113,19 +152,25 @@ Dinwei2/
 
 ## 🚀 部署方案
 
-### 1. Streamlit Cloud（推荐）
+### 1. Vercel（推荐）
+- 免费托管
+- 自动部署
+- 全球CDN加速
+- 自定义域名支持
+
+### 2. Streamlit Cloud
 - 免费托管
 - 自动部署
 - 易于管理
 
-### 2. 自有服务器
+### 3. 自有服务器
 - 使用Docker部署
 - 配置Nginx反向代理
 - 设置SSL证书
 
-### 3. 云平台部署
+### 4. 云平台部署
 - AWS/GCP/Azure
-- Heroku/Vercel
+- Heroku/Railway
 - 阿里云/腾讯云
 
 ## 💡 扩展功能
@@ -164,7 +209,7 @@ Dinwei2/
 
 ## 📞 联系我们
 
-- **邮箱**：contact@yuebeistudio.com
+- **邮箱**：info@yuebeistudio.com
 - **网站**：yuebeistudio.com
 - **GitHub**：[项目地址]
 
