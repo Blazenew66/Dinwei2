@@ -20,6 +20,13 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
+# 在页面顶部添加版本标识
+st.markdown("""
+<div style="background: #1f77b4; color: white; padding: 0.5rem; border-radius: 8px; text-align: center; margin-bottom: 1rem;">
+    <strong>🚀 AI副业推荐工具 v2.1 - 已更新API密钥</strong>
+</div>
+""", unsafe_allow_html=True)
+
 # 主标题、副标题、简介
 st.markdown('''
 <h1 class="main-header">🚀 AI副业方向推荐工具</h1>
