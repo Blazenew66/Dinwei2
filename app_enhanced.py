@@ -156,26 +156,21 @@ def init_deepseek_client():
 def generate_ai_recommendation(api_key, user_data):
     """使用DeepSeek生成副业推荐"""
     
-    # 构建提示词
-    prompt = f"""
-你是一位AI副业咨询专家。请根据以下用户资料，推荐一个最合适的AI副业方向，并给出三步具体行动计划。
+    # 构建提示词（简化版）
+    prompt = f"""你是AI副业咨询师。根据用户资料推荐副业方向：
 
 兴趣：{user_data['interest']}
 技能：{user_data['skills']}
-时间投入：{user_data['time']}
-副业目的：{user_data['goal']}
-是否出镜：{user_data['on_camera']}
-其他信息：{user_data['additional_info']}
+时间：{user_data['time']}
+目标：{user_data['goal']}
+出镜：{user_data['on_camera']}
 
-请回复格式如下：
-1. 推荐副业方向：
-2. 为什么适合你：
-3. 三步行动建议：
-4. 预期收益：
-5. 所需工具：
-
-请用简体中文回复，内容要具体、实用、可操作。每个部分都要详细说明。
-"""
+请用中文回复：
+1. 推荐副业方向
+2. 适合原因
+3. 三步行动建议
+4. 预期收益
+5. 所需工具"""
     
     try:
         headers = {
@@ -184,7 +179,7 @@ def generate_ai_recommendation(api_key, user_data):
         }
         
         data = {
-            "model": "deepseek-coder", # 统一使用deepseek-coder模型
+            "model": "deepseek-chat", # 使用deepseek-chat模型
             "messages": [
                 {"role": "system", "content": "你是一位专业的AI副业咨询师，擅长为用户提供个性化的副业建议。请提供具体、可操作的建议。"},
                 {"role": "user", "content": prompt}
@@ -197,7 +192,7 @@ def generate_ai_recommendation(api_key, user_data):
             "https://api.deepseek.com/v1/chat/completions", # 统一使用DeepSeek API base
             headers=headers,
             json=data,
-            timeout=30
+            timeout=60  # 增加超时时间到60秒
         )
         
         if response.status_code == 200:
